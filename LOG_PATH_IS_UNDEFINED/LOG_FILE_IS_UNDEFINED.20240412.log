@@ -148,3 +148,75 @@
 2024-04-12 17:32:33.004  INFO 13896 --- [SpringContextShutdownHook] o.s.j.e.a.AnnotationMBeanExporter        : Could not unregister MBean [com.github.tobato.fastdfs.domain.conn:name=fdfsConnectionPool,type=FdfsConnectionPool] as said MBean is not registered (perhaps already unregistered by an external process)
 2024-04-12 17:32:33.006  INFO 13896 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-04-12 17:32:33.009  INFO 13896 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-04-12 17:49:24.049  INFO 22508 --- [background-preinit] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 6.1.5.Final
+2024-04-12 17:49:24.093  INFO 22508 --- [main] com.alvis.exam.ExamApplication           : Starting ExamApplication v1.0.0 on DESKTOP-CLQV18N with PID 22508 (C:\github_proj1\exam_be\target\exam-1.0.0.jar started by 1 in C:\github_proj1\exam_be)
+2024-04-12 17:49:24.094  INFO 22508 --- [main] com.alvis.exam.ExamApplication           : The following profiles are active: dev
+2024-04-12 17:49:24.892  INFO 22508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-04-12 17:49:24.895  INFO 22508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-04-12 17:49:24.927  INFO 22508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17ms. Found 0 Redis repository interfaces.
+2024-04-12 17:49:25.602  WARN 22508 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2024-04-12 17:49:25.619  INFO 22508 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2024-04-12 17:49:25.620  INFO 22508 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1473 ms
+2024-04-12 17:49:27.010  INFO 22508 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@72be135f, org.springframework.security.web.context.SecurityContextPersistenceFilter@265c5d69, org.springframework.security.web.header.HeaderWriterFilter@323659f8, org.springframework.web.filter.CorsFilter@155d1021, org.springframework.security.web.authentication.logout.LogoutFilter@7fae4d4a, com.alvis.exam.configuration.spring.security.RestLoginAuthenticationFilter@53ab0286, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@412c995d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3cc20577, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7b22ec89, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@4dd94a58, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4bd2f0dc, org.springframework.security.web.session.SessionManagementFilter@3e521715, org.springframework.security.web.access.ExceptionTranslationFilter@38f2e97e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@497570fb]
+2024-04-12 17:49:27.791  INFO 22508 --- [main] io.undertow                              : starting server: Undertow - 2.1.3.Final
+2024-04-12 17:49:27.805  INFO 22508 --- [main] org.xnio                                 : XNIO version 3.8.0.Final
+2024-04-12 17:49:27.813  INFO 22508 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.0.Final
+2024-04-12 17:49:27.882  INFO 22508 --- [main] org.jboss.threads                        : JBoss Threads version 3.1.0.Final
+2024-04-12 17:49:27.941  INFO 22508 --- [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port(s) 8001 (http)
+2024-04-12 17:49:27.951  INFO 22508 --- [main] com.alvis.exam.ExamApplication           : Started ExamApplication in 4.326 seconds (JVM running for 4.747)
+2024-04-12 17:50:04.277  INFO 22508 --- [XNIO-1 task-2] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-12 17:50:04.278  INFO 22508 --- [XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-12 17:50:04.286  INFO 22508 --- [XNIO-1 task-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2024-04-12 17:50:28.540  WARN 22508 --- [XNIO-1 task-4] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2024-04-12 17:50:28.541  INFO 22508 --- [XNIO-1 task-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-04-12 17:50:28.825  INFO 22508 --- [XNIO-1 task-4] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-04-12 17:50:28.833 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.getUserByUserName   : ==>  Preparing: select id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level from t_user where user_name=? limit 1 
+2024-04-12 17:50:28.855 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.getUserByUserName   : ==> Parameters: student(String)
+2024-04-12 17:50:28.885 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.getUserByUserName   : <==      Total: 1
+2024-04-12 17:50:28.980 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : ==>  Preparing: SELECT id, name, question_count, score, create_time, create_user, subject_id, paper_type, frame_text_content_id, suggest_time, limit_start_time, limit_end_time, grade_level FROM t_exam_paper WHERE paper_type= ? and grade_level=? ORDER BY id desc limit 5 
+2024-04-12 17:50:28.982 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : ==> Parameters: 1(Integer), 12(Integer)
+2024-04-12 17:50:28.987 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : <==      Total: 0
+2024-04-12 17:50:28.988 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : ==>  Preparing: SELECT id, name, question_count, score, create_time, create_user, subject_id, paper_type, frame_text_content_id, suggest_time, limit_start_time, limit_end_time, grade_level FROM t_exam_paper WHERE paper_type= ? and grade_level=? and ? between limit_start_time and limit_end_time ORDER BY id desc limit 5 
+2024-04-12 17:50:28.992 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : ==> Parameters: 4(Integer), 12(Integer), 2024-04-12 17:50:28.988(Timestamp)
+2024-04-12 17:50:28.994 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.ExamPaperMapper.indexPaper     : <==      Total: 0
+2024-04-12 17:50:35.362 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper_question_customer_answer WHERE do_right = FALSE AND create_user = ? 
+2024-04-12 17:50:35.363 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 1(Integer)
+2024-04-12 17:50:35.365 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:36.884 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper_answer WHERE create_user = ? 
+2024-04-12 17:50:36.885 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 1(Integer)
+2024-04-12 17:50:36.887 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:37.985 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.S.getSubjectByLevel            : ==>  Preparing: select id, name, level, level_name from t_subject where level= ? order by item_order 
+2024-04-12 17:50:37.987 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.S.getSubjectByLevel            : ==> Parameters: 12(Integer)
+2024-04-12 17:50:37.990 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.S.getSubjectByLevel            : <==      Total: 9
+2024-04-12 17:50:38.113 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:38.113 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 59(Integer), 1(Integer)
+2024-04-12 17:50:38.115 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:45.452 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:45.454 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 60(Integer), 1(Integer)
+2024-04-12 17:50:45.455 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:46.784 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:46.784 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 61(Integer), 1(Integer)
+2024-04-12 17:50:46.785 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:47.895 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:47.895 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 62(Integer), 1(Integer)
+2024-04-12 17:50:47.896 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:48.457 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:48.458 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 63(Integer), 1(Integer)
+2024-04-12 17:50:48.460 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:48.881 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:48.882 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 64(Integer), 1(Integer)
+2024-04-12 17:50:48.883 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:49.290 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:49.291 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 65(Integer), 1(Integer)
+2024-04-12 17:50:49.292 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:49.676 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:49.677 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 66(Integer), 1(Integer)
+2024-04-12 17:50:49.678 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:50:50.068 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==>  Preparing: SELECT count(0) FROM t_exam_paper WHERE subject_id = ? AND paper_type = ? 
+2024-04-12 17:50:50.068 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : ==> Parameters: 67(Integer), 1(Integer)
+2024-04-12 17:50:50.069 DEBUG 22508 --- [XNIO-1 task-4] r.c.a.e.r.E.studentPage_COUNT            : <==      Total: 1
+2024-04-12 17:51:39.212  INFO 22508 --- [SpringContextShutdownHook] io.undertow                              : stopping server: Undertow - 2.1.3.Final
+2024-04-12 17:51:39.214  INFO 22508 --- [SpringContextShutdownHook] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-12 17:51:39.333  INFO 22508 --- [SpringContextShutdownHook] o.s.j.e.a.AnnotationMBeanExporter        : Could not unregister MBean [com.github.tobato.fastdfs.domain.conn:name=fdfsConnectionPool,type=FdfsConnectionPool] as said MBean is not registered (perhaps already unregistered by an external process)
+2024-04-12 17:51:39.335  INFO 22508 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-04-12 17:51:39.338  INFO 22508 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,0 +1,150 @@
+2024-04-12 16:29:54.469  INFO 13896 --- [background-preinit] o.h.validator.internal.util.Version      : HV000001: Hibernate Validator 6.1.5.Final
+2024-04-12 16:29:54.514  INFO 13896 --- [main] com.alvis.exam.ExamApplication           : Starting ExamApplication v1.0.0 on DESKTOP-CLQV18N with PID 13896 (C:\github_proj2\exam_be\target\exam-1.0.0.jar started by 1 in C:\github_proj2\exam_be)
+2024-04-12 16:29:54.516  INFO 13896 --- [main] com.alvis.exam.ExamApplication           : The following profiles are active: dev
+2024-04-12 16:29:55.289  INFO 13896 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-04-12 16:29:55.293  INFO 13896 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-04-12 16:29:55.321  INFO 13896 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15ms. Found 0 Redis repository interfaces.
+2024-04-12 16:29:56.036  WARN 13896 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2024-04-12 16:29:56.053  INFO 13896 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2024-04-12 16:29:56.054  INFO 13896 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1483 ms
+2024-04-12 16:29:57.407  INFO 13896 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4dd94a58, org.springframework.security.web.context.SecurityContextPersistenceFilter@323659f8, org.springframework.security.web.header.HeaderWriterFilter@55120f99, org.springframework.web.filter.CorsFilter@2f4919b0, org.springframework.security.web.authentication.logout.LogoutFilter@48b0e701, com.alvis.exam.configuration.spring.security.RestLoginAuthenticationFilter@63c5efee, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6b9c69a9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e521715, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3cc20577, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@30b9eadd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@a8a8b75, org.springframework.security.web.session.SessionManagementFilter@38f2e97e, org.springframework.security.web.access.ExceptionTranslationFilter@5652f555, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@127d7908]
+2024-04-12 16:29:58.167  INFO 13896 --- [main] io.undertow                              : starting server: Undertow - 2.1.3.Final
+2024-04-12 16:29:58.180  INFO 13896 --- [main] org.xnio                                 : XNIO version 3.8.0.Final
+2024-04-12 16:29:58.194  INFO 13896 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.0.Final
+2024-04-12 16:29:58.262  INFO 13896 --- [main] org.jboss.threads                        : JBoss Threads version 3.1.0.Final
+2024-04-12 16:29:58.327  INFO 13896 --- [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port(s) 8001 (http)
+2024-04-12 16:29:58.337  INFO 13896 --- [main] com.alvis.exam.ExamApplication           : Started ExamApplication in 4.292 seconds (JVM running for 4.737)
+2024-04-12 17:12:23.970  INFO 13896 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-12 17:12:23.971  INFO 13896 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-12 17:12:23.980  INFO 13896 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2024-04-12 17:12:27.858  WARN 13896 --- [XNIO-1 task-3] com.zaxxer.hikari.HikariConfig           : HikariPool-1 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2024-04-12 17:12:27.859  INFO 13896 --- [XNIO-1 task-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-04-12 17:12:28.092  INFO 13896 --- [XNIO-1 task-3] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-04-12 17:12:28.100 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.getUserByUserName   : ==>  Preparing: select id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level from t_user where user_name=? limit 1 
+2024-04-12 17:12:28.121 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.getUserByUserName   : ==> Parameters: admin(String)
+2024-04-12 17:12:28.147 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.getUserByUserName   : <==      Total: 1
+2024-04-12 17:12:28.291 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper 
+2024-04-12 17:12:28.292 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:12:28.297 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:12:28.300 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==>  Preparing: SELECT count(*) from t_question 
+2024-04-12 17:12:28.301 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==> Parameters: 
+2024-04-12 17:12:28.306 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : <==      Total: 1
+2024-04-12 17:12:28.308 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_answer 
+2024-04-12 17:12:28.310 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:12:28.318 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:12:28.320 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_question_customer_answer 
+2024-04-12 17:12:28.321 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:12:28.324 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:12:28.334 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:12:28.338 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:12:28.346 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:12:28.351 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_question_customer_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:12:28.354 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:12:28.358 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:12:31.758 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:12:31.765 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 1(Integer)
+2024-04-12 17:12:31.768 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:12:31.771 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==>  Preparing: SELECT id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level FROM t_user WHERE role = ? order by id desc LIMIT ? 
+2024-04-12 17:12:31.773 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==> Parameters: 1(Integer), 10(Integer)
+2024-04-12 17:12:31.776 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : <==      Total: 1
+2024-04-12 17:15:54.504 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper 
+2024-04-12 17:15:54.504 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:15:54.505 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:15:54.506 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==>  Preparing: SELECT count(*) from t_question 
+2024-04-12 17:15:54.506 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==> Parameters: 
+2024-04-12 17:15:54.506 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : <==      Total: 1
+2024-04-12 17:15:54.507 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_answer 
+2024-04-12 17:15:54.507 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:15:54.508 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:15:54.509 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_question_customer_answer 
+2024-04-12 17:15:54.511 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:15:54.512 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:15:54.513 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:15:54.513 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:15:54.515 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:15:54.517 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_question_customer_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:15:54.518 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:15:54.518 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:16:36.209 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper 
+2024-04-12 17:16:36.209 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:16:36.210 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:16:36.212 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==>  Preparing: SELECT count(*) from t_question 
+2024-04-12 17:16:36.212 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : ==> Parameters: 
+2024-04-12 17:16:36.213 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.selectAllCount  : <==      Total: 1
+2024-04-12 17:16:36.214 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_answer 
+2024-04-12 17:16:36.214 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:16:36.215 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:16:36.215 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==>  Preparing: SELECT count(*) from t_exam_paper_question_customer_answer 
+2024-04-12 17:16:36.216 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : ==> Parameters: 
+2024-04-12 17:16:36.216 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectAllCount               : <==      Total: 1
+2024-04-12 17:16:36.217 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:16:36.218 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:16:36.219 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:16:36.220 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==>  Preparing: SELECT create_time as name,COUNT(create_time) as value from ( SELECT to_char(create_time,'YYYY-mm-dd') as create_time from t_exam_paper_question_customer_answer WHERE create_time between ? and ? ) a GROUP BY create_time 
+2024-04-12 17:16:36.222 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : ==> Parameters: 2024-04-01 00:00:00.0(Timestamp), 2024-04-30 23:59:59.0(Timestamp)
+2024-04-12 17:16:36.223 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.E.selectCountByDate            : <==      Total: 0
+2024-04-12 17:16:59.925 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:16:59.926 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 1(Integer)
+2024-04-12 17:16:59.928 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:16:59.929 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==>  Preparing: SELECT id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level FROM t_user WHERE role = ? order by id desc LIMIT ? 
+2024-04-12 17:16:59.930 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==> Parameters: 1(Integer), 10(Integer)
+2024-04-12 17:16:59.932 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : <==      Total: 1
+2024-04-12 17:17:37.202 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:17:37.203 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 1(Integer)
+2024-04-12 17:17:37.204 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:17:37.205 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==>  Preparing: SELECT id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level FROM t_user WHERE role = ? order by id desc LIMIT ? 
+2024-04-12 17:17:37.206 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==> Parameters: 1(Integer), 10(Integer)
+2024-04-12 17:17:37.208 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : <==      Total: 1
+2024-04-12 17:18:03.266 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:18:03.267 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 1(Integer)
+2024-04-12 17:18:03.268 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:18:03.270 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==>  Preparing: SELECT id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level FROM t_user WHERE role = ? order by id desc LIMIT ? 
+2024-04-12 17:18:03.272 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : ==> Parameters: 1(Integer), 10(Integer)
+2024-04-12 17:18:03.273 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.repository.UserMapper.userPage   : <==      Total: 1
+2024-04-12 17:21:40.242 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:21:40.242 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:21:40.245 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==>  Preparing: SELECT count(0) FROM t_exam_paper 
+2024-04-12 17:21:40.246 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==> Parameters: 
+2024-04-12 17:21:40.249 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : <==      Total: 1
+2024-04-12 17:21:40.249 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:21:43.595 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.page_COUNT       : ==>  Preparing: SELECT count(0) FROM t_subject 
+2024-04-12 17:21:43.595 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.page_COUNT       : ==> Parameters: 
+2024-04-12 17:21:43.596 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.page_COUNT       : <==      Total: 1
+2024-04-12 17:21:43.598 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.SubjectMapper.page    : ==>  Preparing: SELECT id, name, level, level_name FROM t_subject order by id desc LIMIT ? 
+2024-04-12 17:21:43.599 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.SubjectMapper.page    : ==> Parameters: 10(Integer)
+2024-04-12 17:21:43.601 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.SubjectMapper.page    : <==      Total: 10
+2024-04-12 17:21:47.401 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:21:47.402 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 2(Integer)
+2024-04-12 17:21:47.402 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:21:48.554 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : ==>  Preparing: SELECT count(0) FROM t_user WHERE role = ? 
+2024-04-12 17:21:48.554 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : ==> Parameters: 3(Integer)
+2024-04-12 17:21:48.556 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.UserMapper.userPage_COUNT      : <==      Total: 1
+2024-04-12 17:21:48.558 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.UserMapper.userPage   : ==>  Preparing: SELECT id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level FROM t_user WHERE role = ? order by id desc LIMIT ? 
+2024-04-12 17:21:48.559 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.UserMapper.userPage   : ==> Parameters: 3(Integer), 10(Integer)
+2024-04-12 17:21:48.559 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.repository.UserMapper.userPage   : <==      Total: 1
+2024-04-12 17:21:49.463 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:21:49.463 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:21:49.463 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==>  Preparing: SELECT count(0) FROM t_exam_paper 
+2024-04-12 17:21:49.464 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==> Parameters: 
+2024-04-12 17:21:49.464 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.ExamPaperMapper.page_COUNT     : <==      Total: 1
+2024-04-12 17:21:49.466 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:21:52.544 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:21:52.545 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:21:52.548 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:21:55.311 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:21:55.311 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:21:55.315 DEBUG 13896 --- [XNIO-1 task-4] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:21:55.317 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 17:21:55.317 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 17:21:55.320 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 17:21:58.569 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:21:58.570 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:21:58.573 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:22:49.829 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 17:22:49.830 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 17:22:49.831 DEBUG 13896 --- [XNIO-1 task-3] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 17:32:32.871  INFO 13896 --- [SpringContextShutdownHook] io.undertow                              : stopping server: Undertow - 2.1.3.Final
+2024-04-12 17:32:32.875  INFO 13896 --- [SpringContextShutdownHook] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-04-12 17:32:33.004  INFO 13896 --- [SpringContextShutdownHook] o.s.j.e.a.AnnotationMBeanExporter        : Could not unregister MBean [com.github.tobato.fastdfs.domain.conn:name=fdfsConnectionPool,type=FdfsConnectionPool] as said MBean is not registered (perhaps already unregistered by an external process)
+2024-04-12 17:32:33.006  INFO 13896 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-04-12 17:32:33.009  INFO 13896 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

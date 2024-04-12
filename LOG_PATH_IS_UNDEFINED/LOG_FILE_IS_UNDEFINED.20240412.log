@@ -2119,3 +2119,72 @@ Caused by: org.postgresql.util.PSQLException: 오류: 구문 오류, 입력 끝부분
 2024-04-12 20:27:39.873  INFO 12408 --- [Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
 2024-04-12 20:27:39.962  INFO 12408 --- [restartedMain] com.alvis.exam.ExamApplication           : Starting ExamApplication on DESKTOP-CLQV18N with PID 12408 (C:\github_proj1\exam_be\target\classes started by 1 in C:\github_proj1\exam_be)
 2024-04-12 20:27:39.962  INFO 12408 --- [restartedMain] com.alvis.exam.ExamApplication           : The following profiles are active: dev
+2024-04-12 20:27:40.322  INFO 12408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2024-04-12 20:27:40.323  INFO 12408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-04-12 20:27:40.383  INFO 12408 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59ms. Found 0 Redis repository interfaces.
+2024-04-12 20:27:40.561  WARN 12408 --- [restartedMain] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2024-04-12 20:27:40.563  INFO 12408 --- [restartedMain] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2024-04-12 20:27:40.564  INFO 12408 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 596 ms
+2024-04-12 20:27:40.978  INFO 12408 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@321483dc, org.springframework.security.web.context.SecurityContextPersistenceFilter@2e86a803, org.springframework.security.web.header.HeaderWriterFilter@57533ad3, org.springframework.web.filter.CorsFilter@4cea37f2, org.springframework.security.web.authentication.logout.LogoutFilter@394f5f8e, com.alvis.exam.configuration.spring.security.RestLoginAuthenticationFilter@34e3fac4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@98587ed, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7139ac90, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3ff285c6, org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter@28051576, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@69756b6d, org.springframework.security.web.session.SessionManagementFilter@72adea15, org.springframework.security.web.access.ExceptionTranslationFilter@306df1a2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4896d2ce]
+2024-04-12 20:27:41.171  INFO 12408 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-04-12 20:27:41.192  INFO 12408 --- [restartedMain] io.undertow                              : starting server: Undertow - 2.1.3.Final
+2024-04-12 20:27:41.212  INFO 12408 --- [restartedMain] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port(s) 8001 (http)
+2024-04-12 20:27:41.216  INFO 12408 --- [restartedMain] com.alvis.exam.ExamApplication           : Started ExamApplication in 1.293 seconds (JVM running for 4530.528)
+2024-04-12 20:27:41.218  INFO 12408 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-04-12 20:27:56.124  INFO 12408 --- [XNIO-3 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-12 20:27:56.125  INFO 12408 --- [XNIO-3 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-12 20:27:56.126  INFO 12408 --- [XNIO-3 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-04-12 20:27:56.130  WARN 12408 --- [XNIO-3 task-2] com.zaxxer.hikari.HikariConfig           : HikariPool-3 - idleTimeout has been set but has no effect because the pool is operating as a fixed size pool.
+2024-04-12 20:27:56.131  INFO 12408 --- [XNIO-3 task-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2024-04-12 20:27:56.214  INFO 12408 --- [XNIO-3 task-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2024-04-12 20:27:56.214 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:27:56.215 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:27:56.219 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:27:56.219 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 20:27:56.219 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 20:27:56.220 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 20:28:04.965 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:28:04.966 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:28:04.967 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:28:32.064 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:28:32.065 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:28:32.065 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 20:28:32.066 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 20:28:32.066 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:28:32.067 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 20:28:53.128 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:28:53.128 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:28:53.130 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:28:53.132 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 20:28:53.132 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 20:28:53.133 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 20:29:40.274 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:29:40.275 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:29:40.276 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:30:05.479 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:30:05.480 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:30:05.481 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:30:05.481 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 20:30:05.482 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 20:30:05.482 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 20:30:12.302 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:30:12.302 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:30:12.303 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:32:33.043 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:32:33.043 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:32:33.044 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:32:33.045 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==>  Preparing: SELECT count(0) FROM t_exam_paper 
+2024-04-12 20:32:33.045 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.ExamPaperMapper.page_COUNT     : ==> Parameters: 
+2024-04-12 20:32:33.046 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.ExamPaperMapper.page_COUNT     : <==      Total: 1
+2024-04-12 20:32:33.048 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.repository.ExamPaperMapper.page  : ==>  Preparing: SELECT id, name, question_count, score, create_time, create_user, subject_id, paper_type, frame_text_content_id, suggest_time, limit_start_time, limit_end_time, grade_level FROM t_exam_paper order by id desc LIMIT ? 
+2024-04-12 20:32:33.048 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.repository.ExamPaperMapper.page  : ==> Parameters: 10(Integer)
+2024-04-12 20:32:33.052 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.repository.ExamPaperMapper.page  : <==      Total: 1
+2024-04-12 20:32:33.608 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:32:33.609 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:32:33.609 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==>  Preparing: SELECT count(0) FROM t_question 
+2024-04-12 20:32:33.609 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : ==> Parameters: 
+2024-04-12 20:32:33.610 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.QuestionMapper.page_COUNT      : <==      Total: 1
+2024-04-12 20:32:33.610 DEBUG 12408 --- [XNIO-3 task-2] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67
+2024-04-12 20:32:37.154 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==>  Preparing: select id, name, level, level_name from t_subject 
+2024-04-12 20:32:37.155 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : ==> Parameters: 
+2024-04-12 20:32:37.155 DEBUG 12408 --- [XNIO-3 task-1] r.c.a.e.r.SubjectMapper.allSubject       : <==      Total: 67

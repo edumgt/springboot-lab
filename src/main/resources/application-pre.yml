@@ -6,7 +6,7 @@ ds:
 redis:
   host: 127.0.0.1
 
-fdfs:
-  ngix: http://10.103.15.180:8888
-  tracker-list:
-    - 10.103.15.180:22122
+# fdfs:
+#   ngix: http://10.103.15.180:8888
+#   tracker-list:
+#     - 10.103.15.180:22122

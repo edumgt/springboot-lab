@@ -14,7 +14,8 @@
         </commentGenerator>
 
         <!-- jdbc -->
-        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://127.0.0.1:5432/exam2"
+        <jdbcConnection driverClass="org.postgresql.Driver" 
+        connectionURL="jdbc:postgresql://127.0.0.1:5432/exam2"
                         userId="postgres" password="123456">
         </jdbcConnection>
 
@@ -24,20 +25,20 @@
 
         <!-- domain -->
         <javaModelGenerator targetPackage="com.alvis.exam.domain"
-                            targetProject="C:\SpringBoot_Proj\exam\source\exam\src\main\java\">
+                            targetProject="C:\github_proj1\exam_be\src\main\java\">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- mapper xml -->
         <sqlMapGenerator targetPackage="mapper"
-                         targetProject="C:\SpringBoot_Proj\exam\source\exam\src\main\resources\">
+                         targetProject="C:\github_proj1\exam_be\src\main\resources\">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- repository -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.alvis.exam.repository"
-                             targetProject="C:\SpringBoot_Proj\exam\source\exam\src\main\java\">
+                             targetProject="C:\github_proj1\exam_be\src\main\java\">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 

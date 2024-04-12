@@ -181,9 +181,6 @@
       </if>
     </where>
   </select>
-
-
-
   <select id="selectByIds" resultMap="BaseResultMap" >
     SELECT
     <include refid="Base_Column_List"/>

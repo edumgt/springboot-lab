@@ -6,7 +6,7 @@ ds:
 redis:
   host: 127.0.0.1
 
-fdfs:
-  ngix: http://localhost:8888
-  tracker-list:
-    - localhost:22122
+# fdfs:
+#   ngix: http://localhost:8888
+#   tracker-list:
+#     - localhost:22122

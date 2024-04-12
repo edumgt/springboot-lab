@@ -23,7 +23,7 @@ public enum SystemCode {
     /**
      * InnerError
      */
-    InnerError(500, "系统内部错误"),
+    InnerError(500, "일시적 오류 입니다. (Code: 500)"),
     /**
      * ParameterValidError
      */

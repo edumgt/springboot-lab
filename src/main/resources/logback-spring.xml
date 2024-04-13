@@ -15,7 +15,7 @@
             <charset>utf8</charset>
         </encoder>
     </appender>
-    <appender name="FILE"
+    <!-- <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
@@ -24,44 +24,21 @@
             <fileNamePattern>${LOG_PATH}/${LOG_FILE}.%d{yyyyMMdd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-    </appender>
+    </appender> -->
 
 
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="FILE"/>
+            
         </root>
         <logger name="repository" level="DEBUG" additivity="false">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="FILE"/>
+            
         </logger>
     </springProfile>
 
 
-    <springProfile name="test">
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-        </root>
-        <logger name="repository" level="DEBUG" additivity="false">
-            <appender-ref ref="FILE"/>
-        </logger>
-    </springProfile>
-
-    <springProfile name="pre">
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-        </root>
-        <logger name="repository" level="DEBUG" additivity="false">
-            <appender-ref ref="FILE"/>
-        </logger>
-    </springProfile>
-
-
-    <springProfile name="prod">
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-        </root>
-    </springProfile>
+   
 
 </configuration>

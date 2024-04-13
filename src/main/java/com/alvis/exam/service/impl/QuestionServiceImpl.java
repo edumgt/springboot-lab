@@ -60,7 +60,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
         Date now = new Date();
         Integer gradeLevel = subjectService.levelBySubjectId(model.getSubjectId());
 
-        //题干、解析、选项等 插入
+
         TextContent infoTextContent = new TextContent();
         infoTextContent.setCreateTime(now);
         setQuestionInfoFromVM(infoTextContent, model);

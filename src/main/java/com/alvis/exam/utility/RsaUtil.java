@@ -12,13 +12,9 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
 
-/**
- * @author alvis
- */
+
 public class RsaUtil {
-    /**
-     * String to hold name of the encryption algorithm.
-     */
+
     private static final String ALGORITHM = "RSA";
 
     private static final String CHAR_SET = "utf-8";
@@ -31,9 +27,9 @@ public class RsaUtil {
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(publicBytes);
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
             PublicKey pubKey = keyFactory.generatePublic(keySpec);
-            // get an RSA cipher object and print the provider
+
             final Cipher cipher = Cipher.getInstance(ALGORITHM);
-            // encrypt the plain text using the public key
+
             cipher.init(Cipher.ENCRYPT_MODE, pubKey);
             byte[] cipherBytes = cipher.doFinal(text.getBytes(CHAR_SET));
             return baseByteToStr(cipherBytes);
@@ -51,9 +47,9 @@ public class RsaUtil {
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
             PrivateKey priKey = keyFactory.generatePrivate(keySpec);
             byte[] cipherText;
-            // get an RSA cipher object and print the provider
+
             final Cipher cipher = Cipher.getInstance(ALGORITHM);
-            // encrypt the plain text using the public key
+
             cipher.init(Cipher.DECRYPT_MODE, priKey);
             byte[] textbyte = baseStrToByte(text);
             cipherText = cipher.doFinal(textbyte);
@@ -65,19 +61,12 @@ public class RsaUtil {
     }
 
 
-    /**
-     * @param str str
-     * @return byte[]
-     */
+
     private static byte[] baseStrToByte(String str) {
         return Base64.getDecoder().decode(str);
     }
 
 
-    /**
-     * @param bytes bytes
-     * @return String
-     */
     private static String baseByteToStr(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }

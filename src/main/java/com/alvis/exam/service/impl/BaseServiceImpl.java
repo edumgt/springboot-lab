@@ -1,5 +1,6 @@
 package com.alvis.exam.service.impl;
 
+import com.alvis.exam.domain.TextContent;
 import com.alvis.exam.repository.BaseMapper;
 import com.alvis.exam.service.BaseService;
 import lombok.AllArgsConstructor;
@@ -38,4 +39,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     public int updateById(T record) {
         return baseMapper.updateByPrimaryKey(record);
     }
+
+    
+    
 }

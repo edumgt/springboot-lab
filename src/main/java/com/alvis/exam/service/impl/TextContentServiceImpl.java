@@ -20,11 +20,14 @@ public class TextContentServiceImpl extends BaseServiceImpl<TextContent> impleme
         this.textContentMapper = textContentMapper;
     }
 
-    @Override
-    @Cacheable(value = CACHE_NAME, key = "#id")
-    public TextContent selectById(Integer id) {
-        return super.selectById(id);
-    }
+    // @Override
+    // @Cacheable(value = CACHE_NAME, key = "#id")
+    // public TextContent selectById(Integer id) {
+    //     return super.selectById(id);
+    // }
+
+    
+
 
     @Override
     public int insertByFilter(TextContent record) {

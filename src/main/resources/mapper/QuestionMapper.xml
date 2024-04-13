@@ -33,7 +33,7 @@
       subject_id, create_user, score,
       status, correct, difficult,
       info_text_content_id, grade_level)
-    values (#{id,jdbcType=INTEGER}, #{questionType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+    values (nextval('t_text_content_id_seq'::regclass), #{questionType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{subjectId,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{score,jdbcType=INTEGER},
       #{status,jdbcType=INTEGER}, #{correct,jdbcType=VARCHAR}, #{difficult,jdbcType=INTEGER},
       #{infoTextContentId,jdbcType=INTEGER}, #{gradeLevel,jdbcType=INTEGER})

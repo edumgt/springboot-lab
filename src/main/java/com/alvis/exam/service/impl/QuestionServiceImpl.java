@@ -93,7 +93,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question> implements Qu
         question.setCorrectFromVM(model.getCorrect(), model.getCorrectArray());
         questionMapper.updateByPrimaryKeySelective(question);
 
-        //题干、解析、选项等 更新
+        //질문 줄기, 분석, 옵션 등이 업데이트되었습니다.
         TextContent infoTextContent = textContentService.selectById(question.getInfoTextContentId());
         setQuestionInfoFromVM(infoTextContent, model);
         textContentService.updateByIdFilter(infoTextContent);

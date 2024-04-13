@@ -35,7 +35,15 @@ public class QuestionController extends BaseApiController {
             QuestionResponseVM vm = modelMapper.map(q, QuestionResponseVM.class);
             vm.setCreateTime(DateTimeUtil.dateFormat(q.getCreateTime()));
             vm.setScore(ExamUtil.scoreToVM(q.getScore()));
+            
             TextContent textContent = textContentService.selectById(q.getInfoTextContentId());
+            
+            
+
+            // System.out.println(" textContent.getId() " + textContent.getId());
+            // System.out.println(" textContent.getContent() " + textContent.getContent());
+            // System.out.println(" textContent.getCreateTime() " + textContent.getCreateTime());
+
             QuestionObject questionObject = JsonUtil.toJsonObject(textContent.getContent(), QuestionObject.class);
             String clearHtml = HtmlUtil.clear(questionObject.getTitleContent());
             vm.setShortTitle(clearHtml);

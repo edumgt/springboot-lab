@@ -203,10 +203,10 @@
     SELECT
     <include refid="Base_Column_List"/>
     FROM t_exam_paper
-    <where>
+    <!-- <where>
        and subject_id=#{subjectId}
        and paper_type=#{paperType}
-    </where>
+    </where> -->
   </select>
 
 

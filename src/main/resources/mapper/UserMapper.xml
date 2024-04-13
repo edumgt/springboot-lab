@@ -40,19 +40,20 @@
       last_active_time, create_time, modify_time,
       role, image_path, status,
       user_level)
-    values (#{id,jdbcType=INTEGER}, #{userUuid}::uuid, #{userName,jdbcType=VARCHAR},
+    values (nextval('t_text_content_id_seq'::regclass), #{userUuid}::uuid, #{userName,jdbcType=VARCHAR},
       #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
       #{sex,jdbcType=INTEGER}, #{birthDay,jdbcType=TIMESTAMP}, #{phone,jdbcType=VARCHAR},
       #{lastActiveTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP},
       #{role,jdbcType=INTEGER}, #{imagePath,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},
       #{userLevel,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.alvis.exam.domain.User"   useGeneratedKeys="true" keyProperty="id" >
+  <insert id="insertSelective" parameterType="com.alvis.exam.domain.User"   
+  useGeneratedKeys="true" keyProperty="id" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+      
         id,
-      </if>
+      
       <if test="userUuid != null" >
         user_uuid,
       </if>
@@ -100,9 +101,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
+      nextval('t_text_content_id_seq'::regclass),
+
       <if test="userUuid != null" >
         #{userUuid}::uuid,
       </if>

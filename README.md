@@ -1,3 +1,5 @@
+## 2024-12-17
+
 ## java -jar -Dspring.profiles.active=test  exam-1.0.0.jar
 
 # postgresql 의 pk auto increment 대신 nextval('t_text_content_id_seq'::regclass) 부분 처리

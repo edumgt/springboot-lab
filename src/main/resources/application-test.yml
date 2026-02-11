@@ -1,5 +1,5 @@
 ds:
-  url: jdbc:postgresql://localhost:5432/exam2
+  url: jdbc:postgresql://127.0.0.1:5432/exam2
   username: postgres
   password: 123456
 

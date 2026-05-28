@@ -1,6 +1,5 @@
 package com.alvis.exam.controller;
 
-import com.alvis.exam.base.RestResponse;
 import com.alvis.exam.base.SystemCode;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
@@ -12,14 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 public class ErrorController extends BasicErrorController {
-
-    private static final String PATH = "/error";
 
     public ErrorController() {
         super(new DefaultErrorAttributes(), new ErrorProperties());
@@ -32,10 +29,5 @@ public class ErrorController extends BasicErrorController {
         error.put("code", SystemCode.InnerError.getCode());
         error.put("message", SystemCode.InnerError.getMessage());
         return new ResponseEntity<>(error, HttpStatus.OK);
-    }
-
-    @Override
-    public String getErrorPath() {
-        return PATH;
     }
 }

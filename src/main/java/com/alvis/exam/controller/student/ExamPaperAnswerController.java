@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController("StudentExamPaperAnswerController")
 @RequestMapping(value = "/api/student/exampaper/answer")

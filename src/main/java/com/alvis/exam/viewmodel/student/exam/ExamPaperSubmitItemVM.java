@@ -2,7 +2,7 @@ package com.alvis.exam.viewmodel.student.exam;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Data

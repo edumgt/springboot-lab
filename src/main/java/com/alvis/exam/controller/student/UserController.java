@@ -12,7 +12,7 @@ import com.alvis.exam.viewmodel.student.user.UserResponseVM;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.util.Date;
 import java.util.UUID;
 

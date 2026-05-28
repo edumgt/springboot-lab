@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController("AdminQuestionController")
 @RequestMapping(value = "/api/admin/question")

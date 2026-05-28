@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -19,7 +19,7 @@ class RestUtil {
 
     static boolean isJson(HttpServletRequest request) {
         String contentType = request.getContentType();
-        return null != contentType && (contentType.equals(MediaType.APPLICATION_JSON_UTF8_VALUE) || contentType.equals(MediaType.APPLICATION_JSON_VALUE));
+        return null != contentType && contentType.startsWith(MediaType.APPLICATION_JSON_VALUE);
     }
 
     static void response(HttpServletResponse response, SystemCode systemCode) {

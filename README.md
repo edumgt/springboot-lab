@@ -20,11 +20,11 @@ Spring Boot + MyBatis 기반의 온라인 시험 시스템 백엔드입니다.
 ## 2. 기술 스택 (Tech Stack)
 
 ### Language & Runtime
-- **Java 11**
+- **Java 17**
 - **Maven** 빌드
 
 ### Framework
-- **Spring Boot 2.1.6.RELEASE**
+- **Spring Boot 3.5.0**
 - **Spring Web** (REST API)
 - **Spring Security** (권한 기반 접근제어)
 - **Spring Validation**

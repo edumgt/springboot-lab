@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exam-paper-service
+  namespace: exam-system
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: exam-paper-service
+  template:
+    metadata:
+      labels:
+        app: exam-paper-service
+    spec:
+      containers:
+        - name: exam-paper-service
+          image: exam/exam-paper-service:latest
+          ports:
+            - containerPort: 8085
+          envFrom:
+            - configMapRef:
+                name: exam-config
+            - secretRef:
+                name: exam-secrets
+          env:
+            - name: DS_URL
+              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: DS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_USERNAME
+            - name: DS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: JWT_SECRET
+            - name: QUESTION_SERVICE_URL
+              value: http://question-service:8084
+            - name: SUBJECT_SERVICE_URL
+              value: http://subject-service:8083
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8085
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8085
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exam-paper-service
+  namespace: exam-system
+spec:
+  type: ClusterIP
+  selector:
+    app: exam-paper-service
+  ports:
+    - port: 8085
+      targetPort: 8085
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: exam-paper-service
+  namespace: exam-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: exam-paper-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

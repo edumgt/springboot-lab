@@ -1,0 +1,8 @@
+com/alvis/exam/subject/controller/SubjectController.class
+com/alvis/exam/subject/dto/SubjectEditRequest.class
+com/alvis/exam/subject/dto/SubjectResponse.class
+com/alvis/exam/subject/SubjectServiceApplication.class
+com/alvis/exam/subject/service/SubjectService.class
+com/alvis/exam/subject/domain/Subject.class
+com/alvis/exam/subject/service/impl/SubjectServiceImpl.class
+com/alvis/exam/subject/repository/SubjectMapper.class

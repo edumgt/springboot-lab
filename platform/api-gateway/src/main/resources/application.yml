@@ -1,0 +1,68 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=0
+        - id: user-service
+          uri: ${USER_SERVICE_URL:http://localhost:8082}
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - name: JwtAuthFilter
+        - id: subject-service
+          uri: ${SUBJECT_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/subjects/**
+          filters:
+            - name: JwtAuthFilter
+        - id: question-service
+          uri: ${QUESTION_SERVICE_URL:http://localhost:8084}
+          predicates:
+            - Path=/api/questions/**
+          filters:
+            - name: JwtAuthFilter
+        - id: exam-paper-service
+          uri: ${EXAM_PAPER_SERVICE_URL:http://localhost:8085}
+          predicates:
+            - Path=/api/exam-papers/**
+          filters:
+            - name: JwtAuthFilter
+        - id: exam-runtime-service
+          uri: ${EXAM_RUNTIME_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/exam-runtime/**
+          filters:
+            - name: JwtAuthFilter
+        - id: report-service
+          uri: ${REPORT_SERVICE_URL:http://localhost:8087}
+          predicates:
+            - Path=/api/admin/dashboard/**,/api/student/dashboard/**
+          filters:
+            - name: JwtAuthFilter
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOriginPatterns: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+jwt:
+  secret: ${JWT_SECRET:exam-jwt-secret-key-must-be-at-least-32-chars}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true

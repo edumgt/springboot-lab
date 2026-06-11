@@ -1,0 +1,26 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: ${DS_URL:jdbc:postgresql://localhost:5432/exam2}
+    username: ${DS_USERNAME:postgres}
+    password: ${DS_PASSWORD:123456}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+jwt:
+  secret: ${JWT_SECRET:exam-jwt-secret-key-must-be-at-least-32-chars}

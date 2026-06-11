@@ -1,0 +1,4 @@
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/platform/api-gateway/src/main/java/com/alvis/exam/gateway/GatewayApplication.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/platform/api-gateway/src/main/java/com/alvis/exam/gateway/config/GatewayConfig.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/platform/api-gateway/src/main/java/com/alvis/exam/gateway/filter/GlobalLoggingFilter.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/platform/api-gateway/src/main/java/com/alvis/exam/gateway/filter/JwtAuthGatewayFilterFactory.java

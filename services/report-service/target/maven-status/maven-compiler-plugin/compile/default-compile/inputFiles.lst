@@ -1,0 +1,9 @@
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/ReportServiceApplication.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/controller/AdminDashboardController.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/controller/StudentDashboardController.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/domain/KeyValue.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/dto/AdminDashboardResponse.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/dto/StudentDashboardResponse.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/repository/DashboardMapper.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/service/ReportService.java
+/home/runner/work/springboot-lab/springboot-lab/edumgt/springboot-lab/services/report-service/src/main/java/com/alvis/exam/report/service/impl/ReportServiceImpl.java

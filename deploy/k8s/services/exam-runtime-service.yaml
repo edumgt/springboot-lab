@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: exam-runtime-service
+  namespace: exam-system
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: exam-runtime-service
+  template:
+    metadata:
+      labels:
+        app: exam-runtime-service
+    spec:
+      containers:
+        - name: exam-runtime-service
+          image: exam/exam-runtime-service:latest
+          ports:
+            - containerPort: 8086
+          envFrom:
+            - configMapRef:
+                name: exam-config
+            - secretRef:
+                name: exam-secrets
+          env:
+            - name: DS_URL
+              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: DS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_USERNAME
+            - name: DS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: JWT_SECRET
+            - name: EXAM_PAPER_SERVICE_URL
+              value: http://exam-paper-service:8085
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              valueFrom:
+                configMapKeyRef:
+                  name: exam-config
+                  key: KAFKA_BOOTSTRAP_SERVERS
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8086
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8086
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: exam-runtime-service
+  namespace: exam-system
+spec:
+  type: ClusterIP
+  selector:
+    app: exam-runtime-service
+  ports:
+    - port: 8086
+      targetPort: 8086
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: exam-runtime-service
+  namespace: exam-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: exam-runtime-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70

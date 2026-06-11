@@ -6,6 +6,7 @@ import com.alvis.exam.question.dto.QuestionEditRequest;
 import com.alvis.exam.question.dto.QuestionPageRequest;
 import com.alvis.exam.question.dto.QuestionResponse;
 import com.alvis.exam.question.service.QuestionService;
+import com.alvis.exam.common.exception.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,7 +50,17 @@ public class QuestionController {
 
     @GetMapping("/by-ids")
     public RestResponse<List<QuestionResponse>> getByIds(@RequestParam String ids) {
-        List<Integer> idList = Arrays.stream(ids.split(",")).map(Integer::parseInt).toList();
+        if (ids.isBlank() || !ids.matches("[0-9,]+")) {
+            throw new BusinessException(400, "ids must be comma-separated integers");
+        }
+        List<Integer> idList = Arrays.stream(ids.split(","))
+                .filter(s -> !s.isBlank())
+                .map(Integer::parseInt)
+                .distinct()
+                .toList();
+        if (idList.size() > 200) {
+            throw new BusinessException(400, "Cannot request more than 200 questions at once");
+        }
         return RestResponse.ok(questionService.getByIds(idList));
     }
 }

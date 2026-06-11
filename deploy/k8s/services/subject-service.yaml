@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: subject-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8083"
     spec:
       containers:
         - name: subject-service
@@ -21,11 +25,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: DS_USERNAME
               valueFrom:
                 secretKeyRef:

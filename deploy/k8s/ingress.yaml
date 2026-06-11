@@ -3,9 +3,16 @@ kind: Ingress
 metadata:
   name: exam-ingress
   namespace: exam-system
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
-    - http:
+    - host: ${EXAM_DOMAIN:exam.example.com}
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -14,3 +21,8 @@ spec:
                 name: api-gateway
                 port:
                   number: 8080
+  # Uncomment and configure for TLS:
+  # tls:
+  #   - hosts:
+  #       - exam.example.com
+  #     secretName: exam-tls-secret

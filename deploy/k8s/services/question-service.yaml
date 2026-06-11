@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: question-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8084"
     spec:
       containers:
         - name: question-service
@@ -21,11 +25,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: DS_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -41,8 +41,6 @@ spec:
                 secretKeyRef:
                   name: exam-secrets
                   key: JWT_SECRET
-            - name: SUBJECT_SERVICE_URL
-              value: http://subject-service:8083
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness

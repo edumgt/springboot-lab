@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: exam-runtime-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8086"
     spec:
       containers:
         - name: exam-runtime-service
@@ -21,11 +25,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: DS_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -41,13 +41,6 @@ spec:
                 secretKeyRef:
                   name: exam-secrets
                   key: JWT_SECRET
-            - name: EXAM_PAPER_SERVICE_URL
-              value: http://exam-paper-service:8085
-            - name: KAFKA_BOOTSTRAP_SERVERS
-              valueFrom:
-                configMapKeyRef:
-                  name: exam-config
-                  key: KAFKA_BOOTSTRAP_SERVERS
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -62,11 +55,11 @@ spec:
             periodSeconds: 10
           resources:
             requests:
-              cpu: "250m"
-              memory: "256Mi"
-            limits:
-              cpu: "1"
+              cpu: "500m"
               memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "1Gi"
 ---
 apiVersion: v1
 kind: Service
@@ -100,3 +93,14 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: exam-runtime-service-pdb
+  namespace: exam-system
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: exam-runtime-service

@@ -4,7 +4,7 @@ metadata:
   name: report-service
   namespace: exam-system
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: report-service
@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: report-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8087"
     spec:
       containers:
         - name: report-service
@@ -21,11 +25,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: DS_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -73,3 +73,34 @@ spec:
   ports:
     - port: 8087
       targetPort: 8087
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: report-service
+  namespace: exam-system
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: report-service
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: report-service-pdb
+  namespace: exam-system
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: report-service

@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: exam-paper-service
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8085"
     spec:
       containers:
         - name: exam-paper-service
@@ -21,11 +25,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: DS_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -41,10 +41,6 @@ spec:
                 secretKeyRef:
                   name: exam-secrets
                   key: JWT_SECRET
-            - name: QUESTION_SERVICE_URL
-              value: http://question-service:8084
-            - name: SUBJECT_SERVICE_URL
-              value: http://subject-service:8083
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -97,3 +93,14 @@ spec:
         target:
           type: Utilization
           averageUtilization: 70
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: exam-paper-service-pdb
+  namespace: exam-system
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: exam-paper-service

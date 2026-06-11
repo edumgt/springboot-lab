@@ -4,9 +4,27 @@ metadata:
   name: exam-config
   namespace: exam-system
 data:
+  # Infrastructure
   DB_HOST: postgres-service
   DB_PORT: "5432"
   DB_NAME: exam2
+  DS_URL: jdbc:postgresql://postgres-service:5432/exam2
   REDIS_HOST: redis-service
   REDIS_PORT: "6379"
   KAFKA_BOOTSTRAP_SERVERS: kafka-service:9092
+
+  # Service URLs (used by api-gateway and inter-service calls via env injection)
+  AUTH_SERVICE_URL: http://auth-service:8081
+  USER_SERVICE_URL: http://user-service:8082
+  SUBJECT_SERVICE_URL: http://subject-service:8083
+  QUESTION_SERVICE_URL: http://question-service:8084
+  EXAM_PAPER_SERVICE_URL: http://exam-paper-service:8085
+  EXAM_RUNTIME_SERVICE_URL: http://exam-runtime-service:8086
+  REPORT_SERVICE_URL: http://report-service:8087
+
+  # Observability
+  ZIPKIN_URL: http://zipkin:9411
+  TRACING_SAMPLING: "0.1"
+
+  # CORS (comma-separated allowed origins)
+  CORS_ALLOWED_ORIGINS: "http://localhost:3000"

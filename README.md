@@ -1,214 +1,281 @@
-# Exam BE (온라인 시험/문제 관리 백엔드)
+# Exam Platform — MSA 백엔드
 
-Spring Boot + MyBatis 기반의 온라인 시험 시스템 백엔드입니다.  
-관리자(문항/시험지/사용자 관리)와 학생(시험 응시/답안 조회) API를 분리해 제공하며, PostgreSQL을 주 데이터 저장소로 사용합니다.
-
----
-
-## 1. 프로젝트 개요
-
-이 프로젝트는 다음 목적을 가진 **시험 플랫폼 백엔드 API 서버**입니다.
-
-- 과목/문항/시험지 생성 및 관리
-- 학생의 시험 응시 및 채점 결과 저장
-- 학생/관리자 대시보드 데이터 제공
-- 세션/보안 기반 로그인 처리
-- PostgreSQL 스키마 자동 초기화(Docker)
+Spring Boot 3 기반의 온라인 시험 플랫폼 백엔드입니다.  
+**Spring Cloud Gateway + 8개 마이크로서비스**로 구성되며, PostgreSQL / Redis / Kafka 인프라 위에서 동작합니다.
 
 ---
 
-## 2. 기술 스택 (Tech Stack)
+## 1. 아키텍처 개요
 
-### Language & Runtime
-- **Java 17**
-- **Maven** 빌드
+```
+외부 클라이언트
+      │
+      ▼
+┌─────────────────┐
+│   API Gateway   │  :8080  Spring Cloud Gateway · JWT 검증 · CORS
+└────────┬────────┘
+         │ (라우팅)
+┌────────┴──────────────────────────────────────────────┐
+│  auth-service  :8081   user-service     :8082          │
+│  subject-svc   :8083   question-service :8084          │
+│  exam-paper    :8085   exam-runtime     :8086          │
+│  report-svc    :8087                                   │
+└───────────────────────────────────────────────────────┘
+         │                    │              │
+    PostgreSQL 14          Redis 7       Kafka (Confluent 7.5)
+```
 
-### Framework
-- **Spring Boot 3.5.0**
-- **Spring Web** (REST API)
-- **Spring Security** (권한 기반 접근제어)
-- **Spring Validation**
-- **Spring Cache**
-- **Undertow** (내장 웹서버)
-
-### Data & Persistence
-- **PostgreSQL 14** (로컬 Docker 구성)
-- **MyBatis** (`mapper/*.xml` 기반 SQL 매핑)
-- **PageHelper** (페이징)
-- **HikariCP** (DB 커넥션풀)
-
-### Session / Cache
-- **Spring Session Data Redis**
-- **Spring Data Redis / Jedis**
-- 캐시 타입: Redis
-
-### Utility / Infra
-- **Lombok**
-- **ModelMapper**
-- **Logback (`logback-spring.xml`)**
-- (옵션) **FastDFS Client** 의존성 포함
+레거시 모놀리스 소스는 `src/` 에 참조용으로 보존되어 있습니다.
 
 ---
 
-## 3. 핵심 기능 (Features)
+## 2. 기술 스택
 
-## 3.1 사용자/인증
-- 로그인 API: `POST /api/user/login`
-- 로그아웃 API: `POST /api/user/logout`
-- 학생 회원가입 API: `POST /api/student/user/register`
-- 현재 사용자 조회(관리자/학생)
-- Spring Security 기반 역할(Role) 접근제어
-  - `/api/admin/**` → ADMIN
-  - `/api/student/**` → STUDENT
-  - `/api/teacher/**` → TEACHER
+### Language & Build
+| 항목 | 버전 |
+|------|------|
+| Java | 17 |
+| Maven (multi-module) | 3.x |
 
-## 3.2 관리자(Admin) 기능
-- **대시보드**: 통계/요약 데이터 조회
-- **사용자 관리**: 목록, 상세조회, 수정/업데이트
-- **과목 관리**: 목록, 페이징, 등록/수정, 상세조회
-- **문항 관리**: 목록(페이지), 등록/수정, 상세조회
-- **시험지 관리**: 목록(페이지), 등록/수정, 상세조회
-- **업로드 API** 제공 (`/api/admin/upload/configAndUpload`)
+### Core Framework
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| Spring Boot | 3.5.0 | 전체 서비스 기반 |
+| Spring Cloud | 2024.0.1 | Gateway, LoadBalancer |
+| Spring Cloud Gateway | (관리됨) | API Gateway / 라우팅 |
+| Spring Security | (관리됨) | JWT 인증·인가 |
+| Spring Web (MVC) | (관리됨) | REST API |
+| Spring WebFlux | (관리됨) | WebClient (서비스간 HTTP 호출) |
+| Spring Kafka | (관리됨) | 채점 이벤트 발행 |
+| Spring Session Data Redis | (관리됨) | auth-service 세션 |
+| Spring Data Redis | (관리됨) | user-service 캐시 |
+| Spring Validation | (관리됨) | 입력 유효성 검사 |
 
-## 3.3 학생(Student) 기능
-- **대시보드** 조회
-- **과목 목록/선택**
-- **시험지 목록/상세** 조회
-- **시험 응시 제출** (`answerSubmit`)
-- **응시 이력/결과 조회**
-- **문항 답안 이력 조회 및 상세 조회**
+### Persistence
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| PostgreSQL | 14 | 주 데이터 저장소 |
+| MyBatis Spring Boot Starter | 3.0.4 | SQL 매핑 |
+| PageHelper Spring Boot Starter | 2.1.0 | 페이징 (`helperDialect: postgresql`) |
+| HikariCP | (관리됨) | DB 커넥션풀 |
 
-## 3.4 시험/채점 데이터 모델
-주요 도메인 테이블:
-- `t_user` (사용자)
-- `t_subject` (과목)
-- `t_question` (문항)
-- `t_exam_paper` (시험지)
-- `t_exam_paper_answer` (시험 응시 결과)
-- `t_exam_paper_question_customer_answer` (문항별 사용자 답안)
-- `t_text_content` (문항/시험지 JSON 본문)
+### JWT & Security
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| JJWT (io.jsonwebtoken) | 0.12.6 | JWT 생성·검증 |
+| `shared/security-lib` | 1.0.0 | JWT 필터·Auto-Configuration 공유 라이브러리 |
 
-시험지/문항의 본문은 `t_text_content`에 JSON 형태로 저장되며, 메인 엔터티는 참조 ID를 보관하는 구조입니다.
+### Resilience (복원력)
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| Resilience4j Spring Boot 3 | 2.2.0 | Circuit Breaker (서비스간 호출 보호) |
+| Spring Boot Starter AOP | (관리됨) | Resilience4j AOP 지원 |
+| WebClient + `.timeout(5s)` | (관리됨) | 서비스간 호출 타임아웃 |
+
+### Observability (관측 가능성)
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| Micrometer Tracing (Brave) | (관리됨) | 분산 트레이싱 (Zipkin 연동) |
+| Zipkin Reporter Brave | (관리됨) | Trace 전송 (`/api/v2/spans`) |
+| Micrometer Registry Prometheus | (관리됨) | `/actuator/prometheus` 메트릭 노출 |
+| Spring Boot Actuator | (관리됨) | Health · Info · Metrics · Prometheus |
+
+### API 문서
+| 항목 | 버전 | URL |
+|------|------|-----|
+| springdoc-openapi (webmvc-ui) | 2.6.0 | `http://<service>:<port>/swagger-ui.html` |
+
+### 공유 라이브러리 (`shared/`)
+| 모듈 | 내용 |
+|------|------|
+| `common-lib` | `RestResponse`, `RestPage`, `GlobalExceptionHandler`, `BusinessException`, `JsonUtil`, `DateTimeUtil` |
+| `security-lib` | `JwtTokenProvider`, `JwtAuthenticationFilter`, `JwtProperties`, `SecurityAutoConfiguration` |
+
+### 인프라
+| 항목 | 버전 | 용도 |
+|------|------|------|
+| Redis | 7-alpine | 세션·캐시 |
+| Apache Kafka (Confluent) | 7.5.0 | 채점 완료 이벤트 스트리밍 |
+| Zookeeper (Confluent) | 7.5.0 | Kafka 코디네이터 |
+| Docker Compose | v2 | 로컬 개발 환경 |
+| Kubernetes | 1.25+ | 운영 배포 |
+
+### Utilities
+| 항목 | 용도 |
+|------|------|
+| Lombok 1.18.24 | 보일러플레이트 제거 |
+| ModelMapper 2.3.3 | DTO 매핑 |
 
 ---
 
-## 4. API 구성
+## 3. 모듈 구조
 
-### 관리자 API Prefix
-- `/api/admin/dashboard`
-- `/api/admin/user`
-- `/api/admin/education`
-- `/api/admin/question`
-- `/api/admin/exam/paper`
-- `/api/admin/upload`
-
-### 학생 API Prefix
-- `/api/student/dashboard`
-- `/api/student/user`
-- `/api/student/education`
-- `/api/student/question`
-- `/api/student/question/answer`
-- `/api/student/exam/paper`
-- `/api/student/exampaper/answer`
+```
+springboot-lab/
+├── shared/
+│   ├── common-lib/          공통 응답·예외·유틸
+│   └── security-lib/        JWT 인증 공유 라이브러리
+├── services/
+│   ├── auth-service/        :8081  로그인·JWT 발급·갱신
+│   ├── user-service/        :8082  사용자 CRUD
+│   ├── subject-service/     :8083  과목 관리
+│   ├── question-service/    :8084  문항 CRUD
+│   ├── exam-paper-service/  :8085  시험지 CRUD
+│   ├── exam-runtime-service/:8086  응시·채점·Kafka 이벤트
+│   └── report-service/      :8087  관리자·학생 대시보드
+├── platform/
+│   └── api-gateway/         :8080  Spring Cloud Gateway
+├── deploy/
+│   ├── docker-compose.yml       전체 로컬 스택
+│   ├── docker-compose-infra.yml 인프라만 (DB·Redis·Kafka)
+│   └── k8s/                     Kubernetes 매니페스트
+└── src/                         레거시 모놀리스 (참조용)
+```
 
 ---
 
-## 5. 로컬 실행 가이드 (Docker + PostgreSQL + Spring Boot)
+## 4. 서비스 API 엔드포인트
 
-## 5.1 DB 컨테이너 실행
+게이트웨이(`localhost:8080`) 기준 라우팅 경로입니다.
+
+| 경로 | 서비스 | 인증 |
+|------|--------|------|
+| `POST /auth/login` | auth-service | 불필요 |
+| `POST /auth/refresh` | auth-service | 불필요 |
+| `/api/users/**` | user-service | JWT |
+| `/api/subjects/**` | subject-service | JWT |
+| `/api/questions/**` | question-service | JWT |
+| `/api/exam-papers/**` | exam-paper-service | JWT |
+| `/api/exam-runtime/**` | exam-runtime-service | JWT |
+| `/api/admin/dashboard/**` | report-service | JWT (ADMIN) |
+| `/api/student/dashboard/**` | report-service | JWT (STUDENT) |
+
+API 상세 문서: 각 서비스 포트의 `/swagger-ui.html`
+
+---
+
+## 5. 서비스간 호출 의존관계
+
+```
+exam-paper-service  ──→  question-service
+exam-paper-service  ──→  subject-service
+question-service    ──→  subject-service
+exam-runtime-service──→  exam-paper-service
+exam-runtime-service──→  Kafka (exam.grading.complete)
+```
+
+- **Circuit Breaker**: Resilience4j `@CircuitBreaker` (sliding-window 10, failure-rate 50%, open 10s)
+- **Timeout**: WebClient 5초 + Reactor `.timeout(5s)`
+- **JWT 전달**: `RequestContextHolder`로 인바운드 Bearer 토큰 자동 전파
+
+---
+
+## 6. 로컬 실행 가이드
+
+### 인프라만 먼저 시작 (DB / Redis / Kafka)
 ```bash
-./scripts/start-db.sh
+cd deploy
+docker compose -f docker-compose-infra.yml up -d
 ```
 
-## 5.2 초기 데이터 확인
+### 전체 스택 (서비스 포함)
 ```bash
-./scripts/check-db-data.sh
+cd deploy
+docker compose up -d
 ```
 
-## 5.3 Spring Boot 실행
+### 서비스 개별 빌드 및 실행
 ```bash
-./scripts/run-spring.sh
+# 공유 라이브러리 먼저 설치
+mvn install -pl shared/common-lib,shared/security-lib -am
+
+# 특정 서비스 실행
+mvn spring-boot:run -pl services/question-service
 ```
 
-앱은 기본 `dev` 프로파일에서 다음 DB 정보를 사용합니다.
-- url: `jdbc:postgresql://127.0.0.1:5432/exam2`
-- username: `postgres`
-- password: `123456`
+### 기본 접속 정보
+| 항목 | 값 |
+|------|-----|
+| API Gateway | `http://localhost:8080` |
+| PostgreSQL | `localhost:5432` / `postgres` / `123456` / DB: `exam2` |
+| Redis | `localhost:6379` / password: `redis1` |
+| Kafka | `localhost:9092` |
 
-## 5.4 DB 중지
+> 운영 환경에서는 반드시 강한 시크릿(`JWT_SECRET`, `DS_PASSWORD`, `REDIS_PASSWORD`)으로 교체하세요.
+
+---
+
+## 7. Kubernetes 배포
+
 ```bash
-./scripts/stop-db.sh
+kubectl apply -f deploy/k8s/00-namespace.yaml
+kubectl apply -f deploy/k8s/01-configmap.yaml
+kubectl apply -f deploy/k8s/02-secrets.yaml
+kubectl apply -f deploy/k8s/infrastructure/
+kubectl apply -f deploy/k8s/services/
+kubectl apply -f deploy/k8s/ingress.yaml
 ```
 
----
+### ConfigMap 주요 설정값 (`deploy/k8s/01-configmap.yaml`)
 
-## 6. DB 초기화/시드 구성
+| 키 | 값 |
+|----|-----|
+| `DS_URL` | `jdbc:postgresql://postgres-service:5432/exam2` |
+| `KAFKA_BOOTSTRAP_SERVERS` | `kafka-service:9092` |
+| `ZIPKIN_URL` | `http://zipkin:9411` |
+| `TRACING_SAMPLING` | `0.1` (10%) |
+| `CORS_ALLOWED_ORIGINS` | `http://localhost:3000` |
 
-컨테이너 시작 시 아래 스크립트가 자동 실행됩니다.
+### 서비스별 K8s 구성
 
-- `docker/postgres-init/01_schema.sql`: 스키마 생성
-- `docker/postgres-init/02_seed.sql`: 샘플 데이터 삽입 + 시퀀스 보정
-
-`SERIAL` PK를 사용하는 테이블의 시퀀스를 `setval`로 동기화하여, 시드 데이터 삽입 후에도 ID 충돌 없이 신규 데이터가 저장됩니다.
-
-### 기본 시드 계정
-- 관리자: `admin` / 비밀번호 해시(초기값 `admin`)
-- 학생: `student1` / 비밀번호 해시(초기값 `1234`)
-
-> 비밀번호는 MD5 해시 형태로 저장되어 있으므로 운영 환경에서는 반드시 강한 해시 정책(BCrypt/Argon2)으로 교체하세요.
-
----
-
-## 7. 환경 프로파일
-
-Maven profile 및 Spring 설정 파일이 분리되어 있습니다.
-
-- `dev` (기본)
-- `test`
-- `pre`
-- `prod`
-
-관련 파일:
-- `src/main/resources/application.yml`
-- `src/main/resources/application-dev.yml`
-- `src/main/resources/application-test.yml`
-- `src/main/resources/application-pre.yml`
-- `src/main/resources/application-prod.yml`
+| 서비스 | Replicas | HPA (max) | PDB |
+|--------|----------|-----------|-----|
+| api-gateway | 2 | — | minAvailable 1 |
+| auth-service | 2 | 10 | minAvailable 1 |
+| user-service | 2 | 10 | — |
+| subject-service | 2 | 10 | — |
+| question-service | 2 | 10 | — |
+| exam-paper-service | 2 | 10 | minAvailable 1 |
+| exam-runtime-service | 3 | 10 | minAvailable 2 |
+| report-service | 2 | 8 | minAvailable 1 |
 
 ---
 
-## 8. 로깅/운영 참고
+## 8. 관측 가능성 (Observability)
 
-- 로깅 설정: `logback-spring.xml`
-- server.port 기본값: `8001`
-- 압축 전송 활성화(compression enabled)
-- Undertow 튜닝 값(io threads / worker threads) 적용
+### 분산 트레이싱
+- **Zipkin** 연동 — `ZIPKIN_URL` 환경변수로 엔드포인트 설정
+- 샘플링 비율 `TRACING_SAMPLING` (기본 로컬: `1.0`, 운영: `0.1`)
+- 모든 HTTP 요청에 `traceId` / `spanId` 자동 주입
 
----
+### 메트릭
+- Prometheus 스크래핑: `/actuator/prometheus` (전체 서비스)
+- K8s Pod 어노테이션: `prometheus.io/scrape: "true"` 자동 설정
 
-## 9. 프로젝트 구조
-
-```text
-src/main/java/com/alvis/exam
-├── controller        # admin/student REST API
-├── service           # 비즈니스 로직
-├── repository        # MyBatis Mapper 인터페이스
-├── domain            # 엔티티/Enum
-├── configuration     # 보안, 스프링 설정, 프로퍼티
-└── utility           # 공통 유틸
-
-src/main/resources
-├── mapper            # MyBatis XML SQL
-├── application*.yml  # 환경별 설정
-└── logback-spring.xml
-```
+### Health Check
+- Liveness: `/actuator/health/liveness`
+- Readiness: `/actuator/health/readiness`
+- K8s Probe로 자동 연결
 
 ---
 
-## 10. 개선 권장사항
+## 9. 보안
 
-- Spring Boot / Spring Security 버전 업그레이드(장기지원 버전)
-- 테스트 자동화 활성화(`maven-surefire-plugin`의 `skipTests` 해제)
-- 비밀번호 해시 강화(MD5 → BCrypt/Argon2)
-- Redis 세션/캐시 사용 여부를 환경별로 명확하게 분리
-- API 문서화(OpenAPI/Swagger) 추가
+- **JWT**: HMAC-SHA256, 만료 24시간, `JWT_SECRET` 환경변수로 주입
+- **게이트웨이 JWT 필터**: 공개 라우트(`/auth/**`)를 제외한 모든 요청 검증
+- **CORS**: `CORS_ALLOWED_ORIGINS` 환경변수 (와일드카드 금지)
+- **K8s Secret**: DB·Redis·JWT 자격증명 분리 (`deploy/k8s/02-secrets.yaml`)
+- **비밀번호**: MD5 해시 저장 — 운영 전 BCrypt/Argon2 전환 권장
+
+---
+
+## 10. 환경 프로파일 (레거시 모놀리스 참조용)
+
+Maven 빌드 프로파일 및 Spring 설정 파일이 분리되어 있습니다 (`src/` 하위).
+
+| 프로파일 | 용도 |
+|----------|------|
+| `dev` (기본) | 로컬 개발 |
+| `test` | 테스트 환경 |
+| `pre` | 스테이징 |
+| `prod` | 운영 |

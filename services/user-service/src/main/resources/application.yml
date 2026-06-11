@@ -1,26 +1,53 @@
 server:
   port: 8082
+  shutdown: graceful
+
 spring:
   application:
     name: user-service
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   datasource:
     url: ${DS_URL:jdbc:postgresql://localhost:5432/exam2}
     username: ${DS_USERNAME:postgres}
     password: ${DS_PASSWORD:123456}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 3000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      timeout: 2000ms
+
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
+
+pagehelper:
+  helperDialect: postgresql
+  reasonable: true
+  supportMethodsArguments: true
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics
+        include: health,info,metrics,prometheus
   endpoint:
     health:
       probes:
         enabled: true
+      show-details: when_authorized
+  tracing:
+    sampling:
+      probability: ${TRACING_SAMPLING:1.0}
+  zipkin:
+    tracing:
+      endpoint: ${ZIPKIN_URL:http://localhost:9411}/api/v2/spans
+
 jwt:
   secret: ${JWT_SECRET:exam-jwt-secret-key-must-be-at-least-32-chars}

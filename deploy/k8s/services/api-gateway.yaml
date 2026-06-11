@@ -12,6 +12,10 @@ spec:
     metadata:
       labels:
         app: api-gateway
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /actuator/prometheus
+        prometheus.io/port: "8080"
     spec:
       containers:
         - name: api-gateway
@@ -21,40 +25,12 @@ spec:
           envFrom:
             - configMapRef:
                 name: exam-config
-            - secretRef:
-                name: exam-secrets
           env:
-            - name: DS_URL
-              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
-            - name: DS_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: exam-secrets
-                  key: DB_USERNAME
-            - name: DS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: exam-secrets
-                  key: DB_PASSWORD
             - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: exam-secrets
                   key: JWT_SECRET
-            - name: AUTH_SERVICE_URL
-              value: http://auth-service:8081
-            - name: USER_SERVICE_URL
-              value: http://user-service:8082
-            - name: SUBJECT_SERVICE_URL
-              value: http://subject-service:8083
-            - name: QUESTION_SERVICE_URL
-              value: http://question-service:8084
-            - name: EXAM_PAPER_SERVICE_URL
-              value: http://exam-paper-service:8085
-            - name: EXAM_RUNTIME_SERVICE_URL
-              value: http://exam-runtime-service:8086
-            - name: REPORT_SERVICE_URL
-              value: http://report-service:8087
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -81,9 +57,20 @@ metadata:
   name: api-gateway
   namespace: exam-system
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: api-gateway
   ports:
     - port: 8080
       targetPort: 8080
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: api-gateway-pdb
+  namespace: exam-system
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: api-gateway

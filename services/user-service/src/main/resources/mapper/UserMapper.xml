@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alvis.exam.user.repository.UserMapper">
+  <resultMap id="BaseResultMap" type="com.alvis.exam.user.domain.User">
+    <id column="id" property="id"/>
+    <result column="user_uuid" property="userUuid"/>
+    <result column="user_name" property="userName"/>
+    <result column="password" property="password"/>
+    <result column="real_name" property="realName"/>
+    <result column="age" property="age"/>
+    <result column="sex" property="sex"/>
+    <result column="birth_day" property="birthDay"/>
+    <result column="phone" property="phone"/>
+    <result column="last_active_time" property="lastActiveTime"/>
+    <result column="create_time" property="createTime"/>
+    <result column="modify_time" property="modifyTime"/>
+    <result column="role" property="role"/>
+    <result column="image_path" property="imagePath"/>
+    <result column="status" property="status"/>
+    <result column="user_level" property="userLevel"/>
+  </resultMap>
+  <sql id="Base_Column_List">id, user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level</sql>
+
+  <select id="page" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM t_user
+    <where>
+      <if test="userName != null and userName != ''">AND user_name LIKE CONCAT('%', #{userName}, '%')</if>
+      <if test="role != null">AND role = #{role}</if>
+    </where>
+  </select>
+
+  <select id="selectById" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM t_user WHERE id = #{id}
+  </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> FROM t_user WHERE user_name = #{username} LIMIT 1
+  </select>
+
+  <insert id="insertSelective" parameterType="com.alvis.exam.user.domain.User" useGeneratedKeys="true" keyProperty="id">
+    insert into t_user
+    (user_uuid, user_name, password, real_name, age, sex, birth_day, phone, last_active_time, create_time, modify_time, role, image_path, status, user_level)
+    values (#{userUuid}::uuid, #{userName}, #{password}, #{realName}, #{age}, #{sex}, #{birthDay}, #{phone}, #{lastActiveTime}, #{createTime}, #{modifyTime}, #{role}, #{imagePath}, #{status}, #{userLevel})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.alvis.exam.user.domain.User">
+    update t_user
+    <set>
+      <if test="userName != null">user_name = #{userName},</if>
+      <if test="password != null">password = #{password},</if>
+      <if test="realName != null">real_name = #{realName},</if>
+      <if test="age != null">age = #{age},</if>
+      <if test="sex != null">sex = #{sex},</if>
+      <if test="birthDay != null">birth_day = #{birthDay},</if>
+      <if test="phone != null">phone = #{phone},</if>
+      <if test="lastActiveTime != null">last_active_time = #{lastActiveTime},</if>
+      <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+      <if test="role != null">role = #{role},</if>
+      <if test="imagePath != null">image_path = #{imagePath},</if>
+      <if test="status != null">status = #{status},</if>
+      <if test="userLevel != null">user_level = #{userLevel},</if>
+    </set>
+    where id = #{id}
+  </update>
+
+  <delete id="deleteByIds">
+    delete from t_user where id in
+    <foreach collection="ids" item="id" open="(" separator="," close=")">#{id}</foreach>
+  </delete>
+</mapper>

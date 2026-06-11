@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: exam-system
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: exam/api-gateway:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: exam-config
+            - secretRef:
+                name: exam-secrets
+          env:
+            - name: DS_URL
+              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: DS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_USERNAME
+            - name: DS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: DB_PASSWORD
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: exam-secrets
+                  key: JWT_SECRET
+            - name: AUTH_SERVICE_URL
+              value: http://auth-service:8081
+            - name: USER_SERVICE_URL
+              value: http://user-service:8082
+            - name: SUBJECT_SERVICE_URL
+              value: http://subject-service:8083
+            - name: QUESTION_SERVICE_URL
+              value: http://question-service:8084
+            - name: EXAM_PAPER_SERVICE_URL
+              value: http://exam-paper-service:8085
+            - name: EXAM_RUNTIME_SERVICE_URL
+              value: http://exam-runtime-service:8086
+            - name: REPORT_SERVICE_URL
+              value: http://report-service:8087
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: exam-system
+spec:
+  type: LoadBalancer
+  selector:
+    app: api-gateway
+  ports:
+    - port: 8080
+      targetPort: 8080

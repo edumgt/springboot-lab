@@ -1,0 +1,27 @@
+server:
+  port: 8086
+spring:
+  application:
+    name: exam-runtime-service
+  datasource:
+    url: ${DS_URL:jdbc:postgresql://localhost:5432/exam2}
+    username: ${DS_USERNAME:postgres}
+    password: ${DS_PASSWORD:123456}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+services:
+  exam-paper:
+    url: ${EXAM_PAPER_SERVICE_URL:http://localhost:8085}
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+jwt:
+  secret: ${JWT_SECRET:exam-jwt-secret-key-must-be-at-least-32-chars}

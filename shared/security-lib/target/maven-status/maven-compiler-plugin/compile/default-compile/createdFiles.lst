@@ -1,0 +1,5 @@
+com/alvis/exam/security/jwt/JwtProperties.class
+META-INF/spring-configuration-metadata.json
+com/alvis/exam/security/jwt/JwtTokenProvider.class
+com/alvis/exam/security/config/SecurityAutoConfiguration.class
+com/alvis/exam/security/jwt/JwtAuthenticationFilter.class

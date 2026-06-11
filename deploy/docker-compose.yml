@@ -1,0 +1,143 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:14
+    container_name: exam-postgres
+    environment:
+      POSTGRES_DB: exam2
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+    ports: ["5432:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d exam2"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  redis:
+    image: redis:7-alpine
+    container_name: exam-redis
+    ports: ["6379:6379"]
+    command: redis-server --requirepass redis1
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on: [zookeeper]
+    ports: ["9092:9092"]
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  api-gateway:
+    build: ../platform/api-gateway
+    ports: ["8080:8080"]
+    environment:
+      AUTH_SERVICE_URL: http://auth-service:8081
+      USER_SERVICE_URL: http://user-service:8082
+      SUBJECT_SERVICE_URL: http://subject-service:8083
+      QUESTION_SERVICE_URL: http://question-service:8084
+      EXAM_PAPER_SERVICE_URL: http://exam-paper-service:8085
+      EXAM_RUNTIME_SERVICE_URL: http://exam-runtime-service:8086
+      REPORT_SERVICE_URL: http://report-service:8087
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on: [auth-service, user-service, subject-service, question-service, exam-paper-service, exam-runtime-service, report-service]
+  auth-service:
+    build: ../services/auth-service
+    ports: ["8081:8081"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+  user-service:
+    build: ../services/user-service
+    ports: ["8082:8082"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+  subject-service:
+    build: ../services/subject-service
+    ports: ["8083:8083"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+  question-service:
+    build: ../services/question-service
+    ports: ["8084:8084"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      SUBJECT_SERVICE_URL: http://subject-service:8083
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+  exam-paper-service:
+    build: ../services/exam-paper-service
+    ports: ["8085:8085"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      QUESTION_SERVICE_URL: http://question-service:8084
+      SUBJECT_SERVICE_URL: http://subject-service:8083
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+  exam-runtime-service:
+    build: ../services/exam-runtime-service
+    ports: ["8086:8086"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      EXAM_PAPER_SERVICE_URL: http://exam-paper-service:8085
+      KAFKA_BOOTSTRAP_SERVERS: kafka:29092
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+      kafka:
+        condition: service_started
+  report-service:
+    build: ../services/report-service
+    ports: ["8087:8087"]
+    environment:
+      DS_URL: jdbc:postgresql://postgres:5432/exam2
+      DS_USERNAME: postgres
+      DS_PASSWORD: 123456
+      JWT_SECRET: exam-jwt-secret-key-must-be-at-least-32-chars-long
+    depends_on:
+      postgres:
+        condition: service_healthy
+volumes:
+  postgres_data:
